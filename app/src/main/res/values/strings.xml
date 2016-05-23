@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Prototype</string>
+
+    <string name="login_username_hint">Username</string>
+    <string name="login_pwd_hint">Enter your password</string>
+    <string name="login_button_text">LogIn</string>
+    <string name="login_error_msg"></string>
+    <string name="login_error_msg_fields">Both fields need to be filled!</string>
+    <string name="login_error_msg_refuse">Username or password is incorrect</string>
+
+    <string name="activity_one">Activity 1</string>
+
+    <string name="activity_two">Activity 2</string>
+
+    <string name="activity_three">Activity 3</string>
+</resources>
