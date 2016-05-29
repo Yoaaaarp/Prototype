@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class ChatListFragment extends ListFragment implements OnItemClickListener{
@@ -27,8 +26,8 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_chat_list, container, false);
-        list = (ListView) view.findViewById(R.id.list_chat);
+        View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
+        list = (ListView) view.findViewById(android.R.id.list);
         return view;
     }
 
@@ -38,12 +37,16 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
         super.onActivityCreated(savedInstanceState);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.Planets, android.R.layout.simple_list_item_1);
         setListAdapter(adapter);
-        list.setOnClickListener(this);
+        list.setOnItemClickListener(this);
         //getListView().setOnClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Clicked item : " + position, Toast.LENGTH_SHORT).show();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.messaging_main, new ChatFragment())
+                .addToBackStack(null)
+                .commit();
     }
 }
