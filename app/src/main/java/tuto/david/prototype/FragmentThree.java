@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class ActivityThree extends Fragment {
-    public ActivityThree() {
+public class FragmentThree extends Fragment {
+    public FragmentThree() {
         // constructeur vide
     }
 

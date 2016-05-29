@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import tuto.david.prototype.adapter.ViewPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -27,13 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ActivityOne(), "ONE");
-        adapter.addFragment(new ActivityTwo(), "TWO");
-        adapter.addFragment(new ActivityThree(), "THREE");
+        adapter.addFragment(new FragmentOne(), "ONE");
+        adapter.addFragment(new MessagingFragment(), "Messagerie");
+        adapter.addFragment(new FragmentThree(), "THREE");
         viewPager.setAdapter(adapter);
     }
 }
