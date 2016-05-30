@@ -6,8 +6,6 @@ public class Member {
     private String name;
     private String pwd;
 
-    public Member(){ }
-
     public Member(long id, String name, String pwd){
         this.id = id;
         this.name = name;
