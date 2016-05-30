@@ -1,0 +1,12 @@
+- comment interdir le retour à une activity (login)
+- 
+
+
+
+
+
+
+
+
+Doc :
+https://guides.codepath.com/android/Creating-and-Using-Fragments

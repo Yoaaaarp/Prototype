@@ -3,12 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="80">
+        <TextView
+            android:id="@+id/chat_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Default text..."/>
 
     </RelativeLayout>
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

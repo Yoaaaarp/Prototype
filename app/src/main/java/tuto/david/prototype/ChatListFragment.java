@@ -1,6 +1,7 @@
 package tuto.david.prototype;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 
 public class ChatListFragment extends ListFragment implements OnItemClickListener{
     private ListView list;
+    private Fragment nextFragment = null;
 
     public ChatListFragment() {
         // constructeur vide
@@ -31,7 +33,7 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
         return view;
     }
 
-    // methode appelée lorsque l'activité a terminé son onCreate()
+    // methode appelée lorsque l'activité a terminée son onCreate()
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -44,8 +46,17 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getActivity(), "Clicked item : " + position, Toast.LENGTH_SHORT).show();
+        String title = getListAdapter().getItem(position).toString();
+
+
+        Bundle args = new Bundle();
+        args.putString("Title", title);
+
+        nextFragment = new ChatFragment();
+        nextFragment.setArguments(args);
+
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.messaging_main, new ChatFragment())
+                .replace(R.id.messaging_main, nextFragment)
                 .addToBackStack(null)
                 .commit();
     }
