@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import tuto.david.prototype.database.DatabaseHandler;
+
 public class LoginActivity extends AppCompatActivity {
     private Button lButton;
     private EditText userEditText;
@@ -22,11 +24,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // on attribue le contexte de l'application au database handler
+        DatabaseHandler.setContext(getApplicationContext());
+
         // recupération du bouton de login, des deux EditText et du TextView
         lButton         = (Button) findViewById(R.id.login_button);
-        userEditText    = (EditText) findViewById(R.id.login_username);
-        pwdEditText     = (EditText) findViewById(R.id.login_pwd);
-        errTextView     = (TextView) findViewById(R.id.login_err_view);
+        userEditText   = (EditText) findViewById(R.id.login_username);
+        pwdEditText    = (EditText) findViewById(R.id.login_pwd);
+        errTextView    = (TextView) findViewById(R.id.login_err_view);
 
         // Ajout d'un listener sur le bouton de login
         lButton.setOnClickListener(new View.OnClickListener() {
@@ -42,12 +47,11 @@ public class LoginActivity extends AppCompatActivity {
                     //TODO authentification auprès du serveur
                     errTextView.setText(R.string.login_error_msg_refuse);
                 } else {
-                    //TODO start new activity
                     errTextView.setText("");
                     // création de l'intent
-                    Intent mainActivity = new Intent(LoginActivity.this, HomeActivity.class);
+                    Intent homeActivity = new Intent(LoginActivity.this, HomeActivity.class);
                     // démarrage de l'activité
-                    startActivity(mainActivity);
+                    startActivity(homeActivity);
                 }
             }
         });
