@@ -1,4 +1,4 @@
-- comment interdir le retour à une activity (login)
+- comment interdire le retour à une activity (login)
 - 
 
 
