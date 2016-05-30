@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class ActivityOne extends Fragment {
+public class MessagingFragment extends Fragment {
+    private View view;
 
-    public ActivityOne() {
+    public MessagingFragment() {
         // constructeur vide
     }
 
@@ -21,6 +22,12 @@ public class ActivityOne extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_one, container, false);
+        view = inflater.inflate(R.layout.fragment_messaging, container, false);
+        // ajout du fragment principal au FrameLayout
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.messaging_main, new ChatListFragment(), "CHAT_LIST")
+                .commit();
+        return view;
     }
 }

@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="tuto.david.prototype.ActivityTwo">
+    tools:context=".FragmentOne">
 
     <TextView android:layout_width="fill_parent"
-        android:id="@+id/activity_two_view"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/activity_two"
+        android:text="@string/activity_one"
         android:textSize="20dp"
         android:layout_centerInParent="true"/>
 

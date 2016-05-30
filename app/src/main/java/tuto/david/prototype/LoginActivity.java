@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                     //TODO start new activity
                     errTextView.setText("");
                     // création de l'intent
-                    Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent mainActivity = new Intent(LoginActivity.this, HomeActivity.class);
                     // démarrage de l'activité
                     startActivity(mainActivity);
                 }
