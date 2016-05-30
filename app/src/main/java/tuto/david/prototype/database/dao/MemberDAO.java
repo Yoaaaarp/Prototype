@@ -14,7 +14,7 @@ public class MemberDAO extends DAOBase {
     public static final String MEMBER_TABLE_CREATE = "CREATE TABLE " + MEMBER_TABLE_NAME
             + " (" + MEMBER_KEY + " INTEGER PRIMARY_KEY AUTOINCREMENT, "
             + MEMBER_NAME + " TEXT NOT NULL, "
-            + MEMBER_PWD + "TEXT NOT NULL);";
+            + MEMBER_PWD + " TEXT NOT NULL);";
     public static final String MEMBER_TABLE_DROP = "DROP TABLE IF EXISTS " + MEMBER_TABLE_NAME + ";";
 
     public MemberDAO(Context context) {
