@@ -40,12 +40,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(MemberDAO.MEMBER_TABLE_CREATE);
+        db.execSQL(ChatDAO.CHAT_TABLE_CREATE);
+        db.execSQL(MessageDAO.MESSAGE_TABLE_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // en cas de changement de version, on drop la table et on la recrée
         db.execSQL(MemberDAO.MEMBER_TABLE_DROP);
+        db.execSQL(ChatDAO.CHAT_TABLE_DROP);
+        db.execSQL(MessageDAO.MESSAGE_TABLE_DROP);
         onCreate(db);
     }
 }
