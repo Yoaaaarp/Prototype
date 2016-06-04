@@ -28,7 +28,8 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        title = getArguments().getString("Title");
+        title = getArguments().getString("title");
+        Log.i("Chat", "Title = " + title);
         tView = (TextView) view.findViewById(R.id.chat_title);
         tView.setText(title);
 

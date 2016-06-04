@@ -11,10 +11,10 @@ public class Chat {
     private List<Message> messages;
 
     // constructeur pour nouveau fil de discussion
-    public Chat(long id, String title, List<Member> members){
+    public Chat(long id, String title){
         this.id = id;
         this.title = title;
-        this.members = members;
+        this.members = new ArrayList<>();
         messages = new ArrayList<>();
     }
 

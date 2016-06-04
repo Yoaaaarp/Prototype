@@ -11,8 +11,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import tuto.david.prototype.database.DatabaseHandler;
+import tuto.david.prototype.database.dao.ChatDAO;
 import tuto.david.prototype.database.dao.MemberDAO;
+import tuto.david.prototype.database.dao.SubscriptionDAO;
+import tuto.david.prototype.database.entity.Chat;
 import tuto.david.prototype.database.entity.Member;
+import tuto.david.prototype.database.entity.Subscription;
 
 public class LoginActivity extends AppCompatActivity {
     private Button lButton;
@@ -22,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private String username;
     private String pwd;
+
+    private Member member;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                         errTextView.setText("");
                         // création de l'intent
                         Intent homeActivity = new Intent(LoginActivity.this, HomeActivity.class);
+                        homeActivity.putExtra(MemberDAO.MEMBER_NAME, username);
+                        homeActivity.putExtra(MemberDAO.MEMBER_KEY, member.getId());
                         // démarrage de l'activité
                         startActivity(homeActivity);
                     } else { // autrement on indique l'echec
@@ -70,23 +78,55 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void initDB(){
-        // Creation de deux utilisateurs
-        Member m1 = new Member(1, "dav", "123");
-        Member m2 = new Member(2, "tony", "123");
-        MemberDAO memberDAO = new MemberDAO();
-        memberDAO.create(m1);
-        memberDAO.create(m2);
-    }
-
     private boolean auth(String name, String pwd){
         boolean success = false;
         MemberDAO memberDAO = new MemberDAO();
-        Member member = memberDAO.findMemberByName(name);
+        member = memberDAO.findMemberByName(name);
         if (member != null && member.getPwd().equals(pwd)){
             success = true;
         }
 
         return success;
+    }
+
+    private void initDB(){
+        long id = -1;
+        // Creation de deux utilisateurs
+        Member m1 = new Member(1, "dav", "123");
+        Member m2 = new Member(2, "tony", "123");
+        MemberDAO memberDAO = new MemberDAO();
+
+        id = memberDAO.create(m1);
+        if (id > -1){
+            m1.setId(id);
+        }
+        id = memberDAO.create(m2);
+        if (id > -1){
+            m2.setId(id);
+        }
+        // Creation de trois fils de discussion
+        Chat c1 = new Chat(1, "You're welcome here !");
+        Chat c2 = new Chat(2, "Serious business!");
+        Chat c3 = new Chat(3, "The Inn");
+        ChatDAO chatDAO = new ChatDAO();
+        id = chatDAO.create(c1);
+        if (id > -1){
+            c1.setId(id);
+        }
+        id = chatDAO.create(c2);
+        if (id > -1){
+            c2.setId(id);
+        }
+        id = chatDAO.create(c3);
+        if (id > -1){
+            c3.setId(id);
+        }
+
+        // on inscrit nos deux utilisateurs aux fils de discussion
+        SubscriptionDAO subDAO = new SubscriptionDAO();
+        subDAO.create(new Subscription(1, c1, m1));
+        subDAO.create(new Subscription(1, c2, m1));
+        subDAO.create(new Subscription(1, c2, m2));
+        subDAO.create(new Subscription(1, c3, m2));
     }
 }

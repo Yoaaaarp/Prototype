@@ -6,7 +6,7 @@ public class Subscription {
     private Member member;
     private Chat chat;
 
-    public Subscription(long id, Member member, Chat chat){
+    public Subscription(long id, Chat chat, Member member){
         this.id = id;
         this.chat = chat;
         this.member = member;

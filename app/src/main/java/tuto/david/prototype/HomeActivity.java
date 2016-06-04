@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentOne(), "ONE");
-        adapter.addFragment(new MessagingFragment(), "Messagerie");
+        adapter.addFragment(new ChatListFragment(), "Messagerie");
         adapter.addFragment(new FragmentThree(), "THREE");
         viewPager.setAdapter(adapter);
     }

@@ -26,14 +26,15 @@ public class MemberDAO extends DAOBase {
         super();
     }
 
-    public void create(Member m) throws SQLiteException{
+    public long create(Member m) throws SQLiteException{
+        long id = -1;
         open();
         try {
             mDB.beginTransaction();
             ContentValues values = new ContentValues();
             values.put(MEMBER_NAME, m.getName());
             values.put(MEMBER_PWD, m.getPwd());
-            mDB.insert(MEMBER_TABLE_NAME, null, values);
+            id = mDB.insert(MEMBER_TABLE_NAME, null, values);
             mDB.setTransactionSuccessful();
         } catch (SQLiteException e){
             Log.e("Member DAO", "Error during insertion of data");
@@ -41,6 +42,7 @@ public class MemberDAO extends DAOBase {
             mDB.endTransaction();
         }
         close();
+        return id;
     }
 
     public void delete(long id){
