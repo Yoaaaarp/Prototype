@@ -16,8 +16,8 @@ public class ChatDAO extends DAOBase {
     public static final String CHAT_TABLE_DROP = "DROP TABLE IF EXISTS " + CHAT_TABLE_NAME + ";";
 
 
-    public ChatDAO(Context context) {
-        super(context);
+    public ChatDAO() {
+        super();
     }
 
     public void create(Chat c){

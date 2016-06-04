@@ -4,17 +4,27 @@ package tuto.david.prototype.database.entity;
 import java.util.Date;
 
 public class Message {
+    private long id;
     private Member author;
     private Chat chat;
     private String text;
     //private Date creationDate;
     private int importance;
 
-    public Message(Member author, Chat chat, String text, int importance){
+    public Message(long id, Member author, Chat chat, String text, int importance){
+        this.id = id;
         this.author = author;
         this.chat = chat;
         this.text = text;
         this.importance = importance;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Member getAuthor() {
