@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import tuto.david.prototype.database.dao.ChatDAO;
@@ -22,7 +23,7 @@ import tuto.david.prototype.database.entity.Chat;
 
 public class ChatListFragment extends ListFragment implements OnItemClickListener{
     private ListView list;
-    private Fragment nextFragment = null;
+    private List<Chat> chatList = null;
 
     public ChatListFragment() {
         // constructeur vide
@@ -52,7 +53,7 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
 
         // recuperation des fils de discussion que suit l'utilisateur
         ChatDAO chatDAO = new ChatDAO();
-        List<Chat> chatList = chatDAO.getSubscribedChats(getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
+        chatList = chatDAO.getSubscribedChats(getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
         // s'il est inscrit à des fils de discussion, on les ajoute à la liste
         if (chatList != null) {
             int size = chatList.size();
@@ -71,22 +72,19 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //Toast.makeText(getActivity(), "Clicked item : " + position, Toast.LENGTH_SHORT).show();
-        String title = getListAdapter().getItem(position).toString();
+        //String title = getListAdapter().getItem(position).toString();
 
-        /*
-        Bundle args = new Bundle();
-        args.putString("Title", title);
-
-        nextFragment = new ChatFragment();
-        nextFragment.setArguments(args);
-
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.viewpager, nextFragment)
-                .addToBackStack(null)
-                .commit();
-        */
         Intent chatActivity = new Intent(getActivity(), MessagingActivity.class);
-        chatActivity.putExtra("title", title);
+        Chat chat = chatList.get(position);
+
+        Log.i("Chat List", "position -> " + position);
+        Log.i("Chat List", "titre -> " + chat.getTitle());
+        Log.i("Chat List", "chat id -> " + chat.getId());
+        Log.i("Chat List", "member id -> " + getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
+
+        chatActivity.putExtra(ChatDAO.CHAT_KEY, chat.getId());
+        chatActivity.putExtra(ChatDAO.CHAT_TITLE, chat.getTitle());
+        chatActivity.putExtra(MemberDAO.MEMBER_KEY, getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
         startActivity(chatActivity);
     }
 }

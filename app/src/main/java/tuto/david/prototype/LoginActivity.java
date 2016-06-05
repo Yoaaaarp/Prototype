@@ -128,5 +128,8 @@ public class LoginActivity extends AppCompatActivity {
         subDAO.create(new Subscription(1, c2, m1));
         subDAO.create(new Subscription(1, c2, m2));
         subDAO.create(new Subscription(1, c3, m2));
+
+        // on ajoute quelques messages de base
+
     }
 }

@@ -1,7 +1,14 @@
 package tuto.david.prototype.database.dao;
 
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import tuto.david.prototype.database.entity.Message;
 
@@ -30,8 +37,26 @@ public class MessageDAO extends DAOBase {
         super();
     }
 
-    public void create(Message m){
-        //TODO
+    public long create(Message m) throws SQLiteException {
+        long id = -1;
+        open();
+        try{
+            mDB.beginTransaction();
+            ContentValues values = new ContentValues();
+            values.put(MESSAGE_IMPORTANCE, m.getImportance());
+            values.put(MESSAGE_TEXT, m.getText());
+            values.put(MESSAGE_CHAT, m.getChat());
+            values.put(MESSAGE_AUTHOR, m.getAuthor());
+            id = mDB.insert(MESSAGE_TABLE_NAME, null, values);
+            mDB.setTransactionSuccessful();
+        } catch(SQLiteException e){
+            Log.e("Message DAO", "Error while inserting a new message");
+        } finally {
+            mDB.endTransaction();
+        }
+        close();
+
+        return id;
     }
 
     public void delete(long id){
@@ -45,5 +70,34 @@ public class MessageDAO extends DAOBase {
     public Message read(long id){
         //TODO
         return null;
+    }
+
+    public List<Message> getMessagesForChat(long id) throws SQLiteException{
+        List<Message> msgList = null;
+        read();
+        try {
+            mDB.beginTransaction();
+            Cursor cursor = mDB.rawQuery("SELECT * FROM "
+                    + MESSAGE_TABLE_NAME + " WHERE "
+                    + MESSAGE_CHAT + " = ? ", new String[]{"" + id});
+
+            msgList = new ArrayList<>();
+            while(cursor.moveToNext()){
+                Message msg = new Message();
+                msg.setChat(cursor.getLong(cursor.getColumnIndex(MESSAGE_CHAT)));
+                msg.setAuthor(cursor.getLong(cursor.getColumnIndex(MESSAGE_AUTHOR)));
+                msg.setId(cursor.getLong(cursor.getColumnIndex(MESSAGE_KEY)));
+                msg.setText(cursor.getString(cursor.getColumnIndex(MESSAGE_TEXT)));
+                msg.setImportance(cursor.getInt(cursor.getColumnIndex(MESSAGE_IMPORTANCE)));
+                msgList.add(msg);
+            }
+            mDB.setTransactionSuccessful();
+        } catch(SQLiteException e){
+            Log.e("Message DAO", "Error while retrieving chat's messages...");
+        } finally {
+            mDB.endTransaction();
+        }
+        close();
+        return msgList;
     }
 }
