@@ -18,6 +18,7 @@ import java.util.List;
 
 import tuto.david.prototype.database.dao.ChatDAO;
 import tuto.david.prototype.database.dao.MemberDAO;
+import tuto.david.prototype.database.dao.SubscriptionDAO;
 import tuto.david.prototype.database.entity.Chat;
 
 
@@ -74,7 +75,7 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
         //Toast.makeText(getActivity(), "Clicked item : " + position, Toast.LENGTH_SHORT).show();
         //String title = getListAdapter().getItem(position).toString();
 
-        Intent chatActivity = new Intent(getActivity(), MessagingActivity.class);
+        Intent chatIntent = new Intent(getActivity(), MessagingActivity.class);
         Chat chat = chatList.get(position);
 
         Log.i("Chat List", "position -> " + position);
@@ -82,10 +83,10 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
         Log.i("Chat List", "chat id -> " + chat.getId());
         Log.i("Chat List", "member id -> " + getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
 
-        chatActivity.putExtra(ChatDAO.CHAT_KEY, chat.getId());
-        chatActivity.putExtra(ChatDAO.CHAT_TITLE, chat.getTitle());
-        chatActivity.putExtra(MemberDAO.MEMBER_KEY, getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
+        chatIntent.putExtra(ChatDAO.CHAT_EXTRA_ID, chat.getId());
+        chatIntent.putExtra(ChatDAO.CHAT_EXTRA_TITLE, chat.getTitle());
+        chatIntent.putExtra(MemberDAO.MEMBER_EXTRA_ID, getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
 
-        startActivity(chatActivity);
+        startActivity(chatIntent);
     }
 }

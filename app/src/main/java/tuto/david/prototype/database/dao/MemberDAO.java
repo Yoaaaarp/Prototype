@@ -13,6 +13,8 @@ public class MemberDAO extends DAOBase {
     public static final String MEMBER_NAME = "name";
     public static final String MEMBER_PWD = "pwd";
 
+    public static final String MEMBER_EXTRA_ID = "member_id";
+
     public static final String MEMBER_TABLE_NAME = "member";
     public static final String MEMBER_TABLE_CREATE = "CREATE TABLE " + MEMBER_TABLE_NAME
             + " ("

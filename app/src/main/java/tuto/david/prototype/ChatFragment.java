@@ -50,18 +50,15 @@ public class ChatFragment extends Fragment {
 
         // récupération des id du membre et du fil de discussion
         Bundle args = getArguments();
-        userId = args.getLong(ChatDAO.CHAT_KEY);
-        chatId = args.getLong(MemberDAO.MEMBER_KEY);
-        title = args.getString(ChatDAO.CHAT_TITLE);
+        userId = args.getLong(MemberDAO.MEMBER_EXTRA_ID);
+        chatId = args.getLong(ChatDAO.CHAT_EXTRA_ID);
+        title = args.getString(ChatDAO.CHAT_EXTRA_TITLE);
         //userId = getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1);
        // chatId = getActivity().getIntent().getLongExtra(ChatDAO.CHAT_KEY, -1);
 
         Log.i("Chat", "Chat title -> " + title);
         Log.i("Chat", "Chat id -> " + chatId);
         Log.i("Chat", "Member id -> " + userId);
-        Log.i("Chat", "Chat title -> " + getActivity().getIntent().getStringExtra(ChatDAO.CHAT_TITLE) + " (from intent)");
-        Log.i("Chat", "Chat id -> " + getActivity().getIntent().getLongExtra(ChatDAO.CHAT_KEY, -1) + " (from intent)");
-        Log.i("Chat", "Member id -> " + getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1) + " (from intent)");
 
         // recupération des éléments de la vue
         sendButton = (Button) view.findViewById(R.id.send_msg_button);
@@ -113,6 +110,7 @@ public class ChatFragment extends Fragment {
 
         MessageDAO msgDAO = new MessageDAO();
         if (msgDAO.create(newMsg) > -1){
+            Log.i("Chat", "Message créé chatId -> " + newMsg.getChat() + " memberId -> " + newMsg.getAuthor() + " texte -> " + newMsg.getText());
             success = true;
         }
         chatArrayAdapter.add(newMsg);
@@ -121,7 +119,6 @@ public class ChatFragment extends Fragment {
     }
 
     private void populateChatArrayAdapter(){
-        userId = getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1);
         Log.i("Chat", "userId is " + userId);
         Log.i("Chat", "chatId is " + chatId);
 
@@ -136,7 +133,9 @@ public class ChatFragment extends Fragment {
                 for (int i = 0; i < size; i++) {
                     // pour chaque message, on vérifie si l'utilisateur est l'auteur ou non
                     Message msg = msgList.get(i);
-                    if (msg.getId() == userId){
+                    Log.i("Chat","Message trouvé : auteur -> " + msg.getAuthor() + " chatId -> " + msg.getChat() + " texte -> " + msg.getText());
+                    if (msg.getAuthor() == userId){
+                        Log.i("Chat", "User and author match !");
                         msg.setLeft(true);
                     }
                     chatArrayAdapter.add(msg);

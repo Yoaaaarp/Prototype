@@ -17,6 +17,9 @@ public class ChatDAO extends DAOBase {
     public static final String CHAT_KEY = "id";
     public static final String CHAT_TITLE = "title";
 
+    public static final String CHAT_EXTRA_ID = "chat_extra_id";
+    public static final String CHAT_EXTRA_TITLE = "chat_extra_title";
+
     public static final String CHAT_TABLE_NAME = "chat";
     public static final String CHAT_TABLE_CREATE = "CREATE TABLE " + CHAT_TABLE_NAME
             + " (" + CHAT_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "

@@ -2,6 +2,7 @@ package tuto.david.prototype.adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,11 @@ public class ChatArrayAdapter extends ArrayAdapter<Message>{
         View row = convertView;
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (msg.getLeft()){
-            row = inflater.inflate(R.layout.left_msg, parent, false);
-        } else {
+            Log.i("ChatArrayAdapter", "LEFT");
             row = inflater.inflate(R.layout.right_msg, parent, false);
+        } else {
+            Log.i("ChatArrayAdapter", "RIGHT");
+            row = inflater.inflate(R.layout.left_msg, parent, false);
         }
         chatText = (TextView)row.findViewById(R.id.message);
         chatText.setText(msg.getText());
