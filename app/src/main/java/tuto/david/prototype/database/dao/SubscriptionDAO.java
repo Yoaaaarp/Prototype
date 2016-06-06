@@ -22,7 +22,9 @@ public class SubscriptionDAO extends DAOBase {
     public static final String SUBSCRIPTION_TABLE_CREATE = "CREATE TABLE " + SUBSCRIPTION_TABLE_NAME
             + " (" + SUBSCRIPTION_KEY + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SUBSCRIPTION_MEMBER + " INTEGER NOT NULL, "
-            + SUBSCRIPTION_CHAT + " INTEGER NOT NULL);";
+            + SUBSCRIPTION_CHAT + " INTEGER NOT NULL, "
+            + "UNIQUE ( " + SUBSCRIPTION_MEMBER
+            + " , " + SUBSCRIPTION_CHAT + " ) ON CONFLICT REPLACE );";
     public static final String SUBSCRIPTION_TABLE_DROP = "DROP TABLE IF EXISTS " + SUBSCRIPTION_TABLE_NAME + ";";
 
     public SubscriptionDAO() {

@@ -85,6 +85,7 @@ public class ChatListFragment extends ListFragment implements OnItemClickListene
         chatActivity.putExtra(ChatDAO.CHAT_KEY, chat.getId());
         chatActivity.putExtra(ChatDAO.CHAT_TITLE, chat.getTitle());
         chatActivity.putExtra(MemberDAO.MEMBER_KEY, getActivity().getIntent().getLongExtra(MemberDAO.MEMBER_KEY, -1));
+
         startActivity(chatActivity);
     }
 }

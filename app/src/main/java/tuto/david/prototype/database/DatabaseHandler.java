@@ -11,7 +11,7 @@ import tuto.david.prototype.database.dao.*;
 import tuto.david.prototype.database.entity.Member;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    protected static final int DB_VERSION = 3;
+    protected static final int DB_VERSION = 5;
     protected static final String DB_FILE_NAME = "database.db";
 
     private static DatabaseHandler instance = null;
