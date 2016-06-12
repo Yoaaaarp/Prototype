@@ -103,18 +103,21 @@ public class ChatFragment extends Fragment {
 
     private boolean sendChatMessage(){
         boolean success = false;
-        Message newMsg = new Message();
-        newMsg.setAuthor(userId);
-        newMsg.setChat(chatId);
-        newMsg.setText(editText.getText().toString());
+        if(!editText.getText().toString().isEmpty()) {
+            Message newMsg = new Message();
+            newMsg.setAuthor(userId);
+            newMsg.setChat(chatId);
+            newMsg.setText(editText.getText().toString());
+            newMsg.setLeft(true);
 
-        MessageDAO msgDAO = new MessageDAO();
-        if (msgDAO.create(newMsg) > -1){
-            Log.i("Chat", "Message créé chatId -> " + newMsg.getChat() + " memberId -> " + newMsg.getAuthor() + " texte -> " + newMsg.getText());
-            success = true;
+            MessageDAO msgDAO = new MessageDAO();
+            if (msgDAO.create(newMsg) > -1) {
+                Log.i("Chat", "Message créé chatId -> " + newMsg.getChat() + " memberId -> " + newMsg.getAuthor() + " texte -> " + newMsg.getText());
+                chatArrayAdapter.add(newMsg);
+                success = true;
+            }
+            editText.setText("");
         }
-        chatArrayAdapter.add(newMsg);
-        editText.setText("");
         return success;
     }
 
